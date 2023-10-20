@@ -8,3 +8,24 @@ Consigli del giorno:
 * Dividete in piccoli problemi la consegna.
 * Individuate gli elementi di cui avete bisogno per realizzare il programma.
 */
+
+const min = 1;
+const max = 100;
+const numeriDaGenerare = 5;
+const numeriGenerati = [];
+const numbers = document.getElementById('numbers');
+while (numeriGenerati.length < numeriDaGenerare) {
+    if(!numeriGenerati.includes(getRndInteger(1, 100))){
+        numeriGenerati.push(getRndInteger(1,100));
+    }
+    numbers.innerHTML = numeriGenerati;
+}
+
+
+
+
+
+//UTILITY
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
