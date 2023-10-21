@@ -18,9 +18,10 @@ const correctNumbers = [];
 const numbers = document.getElementById('numbers');
 const input = document.querySelectorAll('input');
 const btn = document.querySelector('button');
-const interval = setTimeout(disappear, 3000);
-let promptRisposta;
-
+const interval = setTimeout(hideNumber, 5000);
+const finalResult = document.getElementById('result');
+let msg;
+let numeriIndovinati = 0;
 while (numeriGenerati.length < numeriDaGenerare) {
     if(!numeriGenerati.includes(getRndInteger(min, max))){
         numeriGenerati.push(getRndInteger(min,max));
@@ -30,10 +31,6 @@ numbers.classList.remove('d-none');
 numbers.innerHTML = numeriGenerati;
 console.log(numeriGenerati);
 
-/*let domanda = setTimeout(function(){
-    
-}, 4000);
-*/
 btn.addEventListener('click', function(){
     for (let i = 0; i < input.length; i++) {
         if (!isNaN(parseInt(input[i].value))) {
@@ -41,13 +38,20 @@ btn.addEventListener('click', function(){
         }
         if (numeriGenerati[i] === numeriUtente[i]) {
             correctNumbers.push(numeriUtente[i]);
+            numeriIndovinati++;
         }
     }
+    if (correctNumbers.length === numeriDaGenerare) {
+        msg = 'Hai indovinato ' + numeriIndovinati + ' numeri';
+    } else {
+        msg = 'Hai perso';
+    }
+    finalResult.innerHTML = msg;
     console.log(correctNumbers);
     console.log(numeriUtente);    
 })
 
-function disappear(){
+function hideNumber(){
     numbers.classList.add('d-none');
 }
 
