@@ -13,19 +13,45 @@ const min = 1;
 const max = 100;
 const numeriDaGenerare = 5;
 const numeriGenerati = [];
+const numeriUtente = [];
+const correctNumbers = [];
 const numbers = document.getElementById('numbers');
+const input = document.querySelectorAll('input');
+const btn = document.querySelector('button');
+const interval = setTimeout(disappear, 3000);
+let promptRisposta;
+
 while (numeriGenerati.length < numeriDaGenerare) {
-    if(!numeriGenerati.includes(getRndInteger(1, 100))){
-        numeriGenerati.push(getRndInteger(1,100));
+    if(!numeriGenerati.includes(getRndInteger(min, max))){
+        numeriGenerati.push(getRndInteger(min,max));
     }
-    numbers.innerHTML = numeriGenerati;
 }
+numbers.classList.remove('d-none');
+numbers.innerHTML = numeriGenerati;
+console.log(numeriGenerati);
 
+/*let domanda = setTimeout(function(){
+    
+}, 4000);
+*/
+btn.addEventListener('click', function(){
+    for (let i = 0; i < input.length; i++) {
+        if (!isNaN(parseInt(input[i].value))) {
+            numeriUtente.push(parseInt(input[i].value));
+        }
+        if (numeriGenerati[i] === numeriUtente[i]) {
+            correctNumbers.push(numeriUtente[i]);
+        }
+    }
+    console.log(correctNumbers);
+    console.log(numeriUtente);    
+})
 
-
-
+function disappear(){
+    numbers.classList.add('d-none');
+}
 
 //UTILITY
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+}
