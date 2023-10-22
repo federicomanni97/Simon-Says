@@ -15,6 +15,7 @@ const numeriDaGenerare = 5;
 const numeriGenerati = [];
 const numeriUtente = [];
 const correctNumbers = [];
+const wrongNumbers = [];
 const numbers = document.getElementById('numbers');
 const input = document.querySelectorAll('input');
 const btn = document.querySelector('button');
@@ -22,6 +23,8 @@ const interval = setTimeout(hideNumber, 5000);
 const finalResult = document.getElementById('result');
 let msg;
 let numeriIndovinati = 0;
+
+
 while (numeriGenerati.length < numeriDaGenerare) {
     if(!numeriGenerati.includes(getRndInteger(min, max))){
         numeriGenerati.push(getRndInteger(min,max));
@@ -36,19 +39,29 @@ btn.addEventListener('click', function(){
         if (!isNaN(parseInt(input[i].value))) {
             numeriUtente.push(parseInt(input[i].value));
         }
+        /*
         if (numeriGenerati[i] === numeriUtente[i]) {
             correctNumbers.push(numeriUtente[i]);
             numeriIndovinati++;
+        } */
+    }
+    for (let x = 0; x <= 5; x++) {
+        if (numeriGenerati.includes(numeriUtente[0])) {
+            let rightNumber = numeriUtente.shift()
+            correctNumbers.push(rightNumber) 
+            numeriIndovinati++
+        } else {
+            let numeriSbagliati = numeriUtente.shift()
+            wrongNumbers.push(numeriSbagliati)
         }
+
     }
     if (correctNumbers.length === numeriDaGenerare) {
         msg = 'Hai indovinato ' + numeriIndovinati + ' numeri';
     } else {
         msg = 'Hai perso';
     }
-    finalResult.innerHTML = msg;
-    console.log(correctNumbers);
-    console.log(numeriUtente);    
+    finalResult.innerHTML = msg + correctNumbers;  
 })
 
 function hideNumber(){
